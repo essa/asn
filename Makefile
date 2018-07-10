@@ -12,9 +12,9 @@ $(OUTDIR)/darwin_amd64/asn:
 $(OUTDIR)/windows_amd64/asn.exe:
 	GOOS=windows GOARCH=amd64 go build -o $(OUTDIR)/windows_amd64/asn.exe
 
-$(OUTDIR)/asn-$(VERSION)-linux_amd64.tar.gz: $(OUTDIR)/linux_amd64/asn
+$(OUTDIR)/asn-$(VERSION)-linux_amd64.zip: $(OUTDIR)/linux_amd64/asn
 	zip -j $(OUTDIR)/asn-$(VERSION)-linux_amd64.zip $(OUTDIR)/linux_amd64/asn
-$(OUTDIR)/asn-$(VERSION)-darwin_amd64.tar.gz: $(OUTDIR)/darwin_amd64/asn
+$(OUTDIR)/asn-$(VERSION)-darwin_amd64.zip: $(OUTDIR)/darwin_amd64/asn
 	zip -j $(OUTDIR)/asn-$(VERSION)-darwin_amd64.zip $(OUTDIR)/darwin_amd64/asn
 $(OUTDIR)/asn-$(VERSION)-windows_amd64.zip: $(OUTDIR)/windows_amd64/asn.exe
 	zip -j $(OUTDIR)/asn-$(VERSION)-windows_amd64.zip $(OUTDIR)/windows_amd64/asn.exe
@@ -29,7 +29,7 @@ dev: generate
 install: dev
 	cp ./asn ~/bin/asn
 
-release: build $(OUTDIR)/asn-$(VERSION)-linux_amd64.tar.gz $(OUTDIR)/asn-$(VERSION)-darwin_amd64.tar.gz $(OUTDIR)/asn-$(VERSION)-windows_amd64.zip
+release: build $(OUTDIR)/asn-$(VERSION)-linux_amd64.zip $(OUTDIR)/asn-$(VERSION)-darwin_amd64.zip $(OUTDIR)/asn-$(VERSION)-windows_amd64.zip
 
 clean:
 	rm -rf $(OUTDIR)

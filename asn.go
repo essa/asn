@@ -52,13 +52,12 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	log.Println(url.Path)
 	asn, err := getASN(db, url.Path[1:])
-	log.Print(asn)
-	log.Print(err)
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
 		log.Print(err)
 		fmt.Fprintln(w, err)
 	} else {
+		log.Print(asn)
 		fmt.Fprintf(w, "%d\n", asn)
 	}
 }
@@ -67,11 +66,8 @@ func main() {
 
 	defer db.Close()
 	flag.Parse()
-	fmt.Println(*startHttp)
-	fmt.Println(*port)
 
 	if *startHttp {
-
 		http.HandleFunc("/", handler)
 		http.ListenAndServe(":8080", nil)
 	} else {
@@ -81,7 +77,6 @@ func main() {
 			os.Exit(-1)
 		}
 		fmt.Printf("%d\n", asn)
-
 	}
 
 }
